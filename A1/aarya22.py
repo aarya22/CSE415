@@ -11,7 +11,7 @@ from Monty Python's Holy Grail.
 import string, random
 
 # setting some defaults
-MEMORY = {'possession': 'swords', 'think': 'exploting the workers', 'request': 'gathering filth', 'id': 'king', 'feel': 'outdated imperialist dogma'}
+MEMORY = {'possession': 'swords', 'think': 'exploiting the workers', 'request': 'gathering filth', 'id': 'king', 'feel': 'outdated imperialist dogma', 'insult': 'old woman'}
 
 # boolean for cycling
 x = True
@@ -35,7 +35,16 @@ def respond(the_input):
     wordlist = [k.lower() for k in wordlist]  # lowercase all words in input
     # Mapped wordlist
     mapped_wordlist = you_me_map(wordlist)
+    #print(wordlist)
 
+    if 'king' in wordlist:
+        # Response to mentioning 'king'
+        if x:
+            return "King? I didn\' vote for ya!"
+        else:
+            return "A King! Probably in love with power!"
+    if 'good' in wordlist and 'morning' in wordlist or 'evening' in wordlist or 'afternoon' in wordlist:
+        return "I don\'t have time for greetings and other niceties! Just another way to socialize us to cement your rule!"
     if 'hi' in wordlist or 'hello' in wordlist or 'hey' in wordlist:
         # Response to greeting
         if x:
@@ -64,17 +73,15 @@ def respond(the_input):
     if 'where' in wordlist:
         # Response about where Dennis lives
         return 'I live in an anarcho-syndacalist commune where we each take turns to be a sort of executive officer for the week \nbut all the decisions of that officer have to be ratified at a special bi-weekly meeting by a simple majority in the case of purely internal affairs \nbut by a two thirds majority in the case of external ones.'
-    if wpred(wordlist[0]):
+    if wpred(wordlist[0]) or '?' in wordlist:
         # Response to any questions asked of Dennis
         if x:
             return 'Your interrogation will never work on me, capitalist dog! \n' + punt()
         else:
             return 'Oh ho ho! I\'ll be asking the questions here! \n' + punt()
-    if 'have' in wordlist or 'had' in wordlist or 'has' in wordlist or 'my' in wordlist:
+    if 'had' in wordlist or 'has' in wordlist or 'my' in wordlist:
         # Response to anything about possessions
-        if 'have' in wordlist:
-            idx = wordlist.index('have')
-        elif 'had' in wordlist:
+        if 'had' in wordlist:
             idx = wordlist.index('had')
         elif 'has' in wordlist:
             idx = wordlist.index('has')
@@ -85,13 +92,15 @@ def respond(the_input):
             return 'You know what? That\'s exactly the problem. Private property! \nJust another way the capitalists keep the workers down an\' perpetuatin\' \nthe cycle of class conflict!'
         else:
             return 'Have you now? Probably got ' + MEMORY['possession'] + ' from exploitin\' the workers!'
-    if wordlist[0:2] == ['i', 'feel']:
+    if wordlist[0:2] == ['i', 'feel'] or 'feeling' in wordlist:
         # Response to anything about what the other feels
-        MEMORY['feel'] = stringify(mapped_wordlist[2:])
+        if wordlist[0:2] == ['i', 'feel']:
+            MEMORY['feel'] = stringify(mapped_wordlist[2:])
+        else:
+            MEMORY['feel'] = stringify(mapped_wordlist[wordlist.index('feeling')+1:])
         if x:
             return 'Feel? I didn\'t know that dogs could feel ' + \
-                   stringify(
-                       mapped_wordlist[2:]) + '! Where was this feeling when you were busy exploitin\' the working class? \n' + punt()
+                   MEMORY['feel'] + '! Where was this feeling when you were busy exploitin\' the working class? \n' + punt()
         else:
             return 'Oh really? What about the way you feel about your outdated imperialist dogma? \n' + punt()
     if 'because' in wordlist:
@@ -113,20 +122,20 @@ def respond(the_input):
             return "Help, help I\'m being oppressed! Come see the insults inherent in the system! \n" + punt()
         else:
             return "I object to you automatically treating me like an inferior \n" + punt()
-    if wordlist[0:2] == ['can', 'you'] or wordlist[0:2] == ['could', 'you'] or 'please' in wordlist:
+    if wordlist[0:2] == ['can', 'you'] or wordlist[0:2] == ['could', 'you'] or 'please' in wordlist or '?' in wordlist:
         # Response to requesting something from Dennis
         MEMORY['request'] = stringify(mapped_wordlist[2:])
         return "We already went over this. I\'m not going to " + stringify(mapped_wordlist[2:]) + " just so you can get fat off of my hard work! \n" + punt()
-    if verbp(wordlist[0]) or dpred(wordlist[0]):
+    if wordlist[0:3] == ['do', 'you', 'think']:
+        # Response to what Dennis thinks about anything
+        MEMORY['think'] = stringify(mapped_wordlist[4:])
+        return "Do I think " + stringify(mapped_wordlist[3:]) + "? No of course not, We're living in a dictatorship. ..... \n A self-perpetuating autocracy in which the working classes are ravaged by the greed of pigs like you!"
+    if wpred(wordlist[0]) or dpred(wordlist[0]):
         # Response to telling Dennis to do something
         if x:
             return "Not simply satisfied with the legions you probably already have under your command eh? You want me to work for you now too? \n" + punt()
         else:
             return "What? So you make me slave away while you get rich off the disparity of what I produce and what you sell it for? \n" + punt()
-    if wordlist[0:3] == ['do', 'you', 'think']:
-        # Response to what Dennis thinks about anything
-        MEMORY['think'] = stringify(mapped_wordlist[3:])
-        return "Do I think " + stringify(mapped_wordlist[3:]) + "? No of course not, We're living in a dictatorship. ..... \n A self-perpetuating autocracy in which the working classes are ravaged by the greed of pigs like you!"
     if 'workers' in wordlist or 'worker' in wordlist:
         # Response to mentioning workers
         return "Thinkin\' about the workers now eh? Only when its beneficial to your wealth!"
@@ -141,7 +150,10 @@ def respond(the_input):
         return "Ah the system, probably going to show me the violence inherent in the system now!"
     if 'power' in wordlist:
         # Response to mentioning power
-        return "Listen supreme executive power has to be derived from a mandate from the masses! Not from some farcical aquatic ceremonies!"
+        if x:
+            return "Listen supreme executive power has to be derived from a mandate from the masses! Not from some farcical aquatic ceremonies!"
+        else:
+            return "Power! Power should go the masses not a bunch of bastards like you!"
     if 'water' in wordlist or 'aquatic' in wordlist:
         # Response to mentioning water or aquatic
         return "Bet you\'re a big fan of farcical aquatic ceremonies."
@@ -168,7 +180,7 @@ def punt():
              'Why did you make ' + MEMORY['request'] + ' a priority? Exhaustin\' your worker supply already?',
              'So you\'re a ' + MEMORY['id'] + '? Got that from exploitin\' the workers did ya? Listen, supreme executive power comes \n from a mandate from the masses, not some farcical ceremony!',
              'Explain why you feel you\'re entitled to ' + MEMORY['feel'] + ' while you actively suppress feelings of dissent from the \n worker population you exploit on a daily basis!',
-             'See if I mean, if I went around sayin\' I was an empereror just because some moistened bink had \n lobbed a scimitar at me they\'d put me away!']
+             'Oh, oh, now we see the insults inherent in the system! This fool called me a ' + str(MEMORY['insult'])]
     return random.choice(PUNTS)
 
 
