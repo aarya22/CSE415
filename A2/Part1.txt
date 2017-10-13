@@ -1,0 +1,54 @@
+Aman Arya
+CSE415
+1535134
+
+Assignment 2 Part 1
+
+1. Element-of
+2. Subset-of
+3. Element-of
+4. Element-of
+5. Element-of, ambiguous about what exactly defines a great name
+6. Element-of, you can also argue subset because there are many different kinds of AI: ANI, AGI, ASI
+
+7. {(a, a)}
+
+Reflexive
+Symmetric
+Antisymmetric
+Transitive
+Partial-order
+
+8. {(a, b), (a, c), (b, c)}
+
+Not Reflexive
+Not Symmetric
+Not Antisymmetric
+Transitive
+Not Partial order
+
+9. {(a, a), (a, b), (b, b), (b, c), (a, c), (c, c)}
+
+Reflexive
+Not Symmetric
+Not Antisymmetric
+Transitive
+Not Partial order
+
+10. {(a, b), (b, c)}
+
+Not Reflexive
+Not Symmetric
+Transitive
+Not Antisymmetric
+Not Partial Order
+
+11. {}
+
+Reflexive
+Symmetric
+Transitive
+Antisymmetric
+Partial-order
+
+
