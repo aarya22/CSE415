@@ -7,8 +7,8 @@
 import sys
 
 if sys.argv==[''] or len(sys.argv)<2:
-#  import EightPuzzle as Problem
-  import TowerOfHanoi as Problem
+  import BasicEightPuzzle as Problem
+  #import TowerOfHanoi as Problem
 else:
   import importlib
   Problem = importlib.import_module(sys.argv[1])
@@ -55,6 +55,7 @@ def IterativeDFS(initial_state):
          print("COUNT = "+str(COUNT))
          print("len(OPEN)="+str(len(OPEN)))
          print("len(CLOSED)="+str(len(CLOSED)))
+
     L = []
     for op in Problem.OPERATORS:
       if op.precond(S):
@@ -90,6 +91,7 @@ def backtrace(S):
   print("Solution path: ")
   for s in path:
     print(s)
+  print("\nPath length = " + str(len(path) - 1))
   return path    
   
 
