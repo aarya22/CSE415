@@ -26,7 +26,7 @@ from priorityq import PriorityQ
 # DO NOT CHANGE THIS SECTION
 if sys.argv == [''] or len(sys.argv) < 2:
     import EightPuzzleWithHeuristics as Problem
-    heuristics = lambda s: Problem.HEURISTICS['h_custom'](s)
+    heuristics = lambda s: Problem.HEURISTICS['h_hamming'](s)
 
 else:
     import importlib
@@ -93,6 +93,8 @@ def AStar(initial_state):
         for next in L:
             g[next] = g[S] + 1
             f[next] = g[next] + heuristics(next)
+
+        #bestchoice = min(f, key=f.get)
 
         minval = float("inf")
         bestchoice = 0

@@ -1,9 +1,9 @@
-		puzzle10a				puzzle12a				puzzle14a		puzzle16a
+    		    puzzle10a           puzzle12a			puzzle14a		    puzzle16a
 
-h_manhattan	(longer than 30) solved, 613 states	(longer than 30) solved, 1320 states	aborted			aborted
+h_manhattan	    solved, 14 states   solved, 64 states	solved, 46 states	solved, 226 states
 
-h_euclidean	solved, 20 states			solved, 71 states			solved, 54 states	solved, 289 states
+h_euclidean	    solved, 20 states   solved, 71 states	solved, 54 states	solved, 289 states
 
-h_hamming	solved, 44 states			solved, 96 states			solved, 190 states	solved, 615 states
+h_hamming	    solved, 44 states	solved, 96 states	solved, 190 states	solved, 615 states
 
-h_custom	solved, 20 states			solved, 70 states			solved, 52 states	solved, 259 states
+h_custom	    solved, 20 states	solved, 70 states	solved, 52 states	solved, 259 states

@@ -123,7 +123,7 @@ def h_manhattan(s):
         col = idx % 3
         grow = gidx / 3
         gcol = gidx % 3
-        r += abs(grow + row) + abs(gcol+col)
+        r += abs(grow - row) + abs(gcol - col)
     return r
 
 
