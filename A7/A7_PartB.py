@@ -23,6 +23,7 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import TruncatedSVD
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import Normalizer
+from sklearn.cluster import KMeans
 
 
 # In[3]:
@@ -57,7 +58,7 @@ X_train, X_test, y_train, y_test = train_test_split(df['text'], y, test_size=0.3
 # In[8]:
 
 # Initialize the `tfidf_vectorizer` 
-tfidf_vectorizer = TfidfVectorizer(stop_words='english', max_df=0.7) 
+tfidf_vectorizer = TfidfVectorizer(stop_words='english', max_df=0.4, min_df=2, use_idf=True, norm='l2') 
 
 # Fit and transform the training data 
 tfidf_train = tfidf_vectorizer.fit_transform(X_train) 
@@ -82,7 +83,7 @@ def plot_confusion_matrix(cm, classes,
     else:
         print('Confusion matrix, without normalization')
 
-    #print(cm)
+    print(cm)
 
     plt.imshow(cm, interpolation='nearest', cmap=cmap)
     plt.title(title)
@@ -120,17 +121,26 @@ plot_confusion_matrix(cm, classes=['FAKE', 'REAL'])
 
 # In[ ]:
 
-svd = TruncatedSVD(n_components=100)
-normalizer = Normalizer(copy=False)
-lsa = make_pipeline(svd, normalizer)
+lsa = TruncatedSVD(n_components=100)
 
 
 # In[ ]:
 
-X = lsa.fit(tfidf_train)
+X = lsa.fit_transform(tfidf_train)
+print("LSA fit and transformed")
 
 
 # In[ ]:
+km = KMeans(n_clusters=2, init='k-means++', algorithm='full')
+km.fit(tfidf_train)
+pred_km = km.predict(tfidf_test)
+print("First predictions")
+print(pred_km[0:5])
+lookup_table = np.array(['REAL', 'FAKE'])
+pred_km = lookup_table[pred_km]
+print(pred_km[0:5])
 
-
-
+score = metrics.accuracy_score(y_test, pred_km)
+print("accuracy:   %0.3f" % score)
+cm = metrics.confusion_matrix(y_test, pred_km, labels=['FAKE', 'REAL'])
+plot_confusion_matrix(cm, classes=['FAKE', 'REAL'])
